@@ -9,13 +9,13 @@ class RecipeModelTest(RecipeTestBase):
         self.recipe = self.make_recipe()
         return super().setUp()
 
-    def make_recipe_no_defaults(self):
+    def make_recipe_no_defaults(self, slug_content='recipe-slug-02'):
         recipe = Recipe(
             category=self.make_category(name='Test Default Category'),
             author=self.make_author(username='newuser'),
             title='Recipe Title',
             description='Recipe Description',
-            slug='recipe-slug-02',
+            slug=slug_content,
             preparation_time=10,
             preparation_time_unit='Minutos',
             servings=5,
@@ -63,3 +63,7 @@ class RecipeModelTest(RecipeTestBase):
             msg=f'Recipe string representation must be '
             f'"{needed}" but "{self.recipe}" was receveid.'
         )
+
+    def test_recipe_slug_name_is_not_repeated(self):
+        with self.assertRaises(ValidationError):
+            self.make_recipe_no_defaults('recipe-slug')
