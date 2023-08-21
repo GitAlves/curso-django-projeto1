@@ -82,3 +82,19 @@ class PaginationViewTest(RecipeTestBase):
         page_obj, pagination_range = make_pagination(request_search, self.recipes, 9)  # noqa: E501;
 
         self.assertEqual(page_obj.number, 1)
+
+    def test_number_of_recipes_are_correct_on_the_page_one(self):
+        request_response = self.factory.get(f'{self.request}/?page=1')
+
+        page_obj, pagination_range = make_pagination(request_response, self.recipes, 9)  # noqa: E501;
+
+        # Count the number of recipes in the page one after the pagination
+        self.assertEqual(len(page_obj.object_list), 9)
+
+    def test_number_of_recipes_are_correct_on_the_last_page(self):
+        request_response = self.factory.get(f'{self.request}/?page=2')
+
+        page_obj, pagination_range = make_pagination(request_response, self.recipes, 9)  # noqa: E501;
+
+        # Count the number of recipes in the page two after the pagination
+        self.assertEqual(len(page_obj.object_list), 2)
