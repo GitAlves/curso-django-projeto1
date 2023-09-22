@@ -12,3 +12,4 @@ class RegisterForm(forms.ModelForm):
             'email',
             'password',
         ]
+        # exclude = ['first_name']
