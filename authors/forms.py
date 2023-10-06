@@ -84,9 +84,9 @@ class RegisterForm(forms.ModelForm):
 
         if 'atenção' in data:
             raise ValidationError(
-                'Não digite "atenção" no campo password',
+                'Não digite %(value)s no campo password',
                 code='invalid',
-                params={'value': '"John"'}
+                params={'value': '"atenção"'}
             )
 
         return data
@@ -96,7 +96,7 @@ class RegisterForm(forms.ModelForm):
 
         if 'John Doe' in data:
             raise ValidationError(
-                'Não digite "John Doe" no campo first name',
+                'Não digite %(value)s no campo first name',
                 code='invalid',
                 params={'value': '"John Doe"'}
             )
